@@ -1,0 +1,971 @@
+{
+  "students": [
+    {
+      "id": "S001",
+      "name": "Ana Garcia",
+      "program": "Computer Science",
+      "academic_year": 2,
+      "gpa": 3.65,
+      "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
+    },
+    {
+      "id": "S002",
+      "name": "Carlos Rodriguez",
+      "program": "Computer Science",
+      "academic_year": 2,
+      "gpa": 3.82,
+      "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
+    },
+    {
+      "id": "S003",
+      "name": "Sofia Martinez",
+      "program": "Computer Science",
+      "academic_year": 2,
+      "gpa": 3.41,
+      "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
+    },
+    {
+      "id": "S004",
+      "name": "Diego Hernandez",
+      "program": "Computer Science",
+      "academic_year": 2,
+      "gpa": 2.95,
+      "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
+    },
+    {
+      "id": "S005",
+      "name": "Laura Mendez",
+      "program": "Computer Science",
+      "academic_year": 2,
+      "gpa": 3.25,
+      "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
+    }
+  ],
+  "courses": [
+    {
+      "id": "CS101",
+      "name": "Introduction to Programming",
+      "semester": "Fall",
+      "academic_year": 2023,
+      "credits": 4,
+      "professor": "Dr. Alejandro Perez",
+      "department": "Computer Science",
+      "topics": [
+        {
+          "id": "T001",
+          "name": "Basic Syntax",
+          "evaluations": ["E001", "E003"]
+        },
+        {
+          "id": "T002",
+          "name": "Control Structures",
+          "evaluations": ["E001", "E003", "E005"]
+        },
+        {
+          "id": "T003",
+          "name": "Functions",
+          "evaluations": ["E003", "E005"]
+        },
+        {
+          "id": "T004",
+          "name": "Arrays and Lists",
+          "evaluations": ["E005", "E007"]
+        }
+      ],
+      "student_grades": {
+        "S001": 87,
+        "S002": 92,
+        "S003": 78,
+        "S004": 73,
+        "S005": 85
+      }
+    },
+    {
+      "id": "CS202",
+      "name": "Data Structures",
+      "semester": "Spring",
+      "academic_year": 2024,
+      "credits": 4,
+      "professor": "Dr. Maria Lopez",
+      "department": "Computer Science",
+      "topics": [
+        {
+          "id": "T005",
+          "name": "Linked Lists",
+          "evaluations": ["E002", "E004"]
+        },
+        {
+          "id": "T006",
+          "name": "Trees",
+          "evaluations": ["E004", "E006"]
+        },
+        {
+          "id": "T007",
+          "name": "Hash Tables",
+          "evaluations": ["E006", "E008"]
+        },
+        {
+          "id": "T008",
+          "name": "Graphs",
+          "evaluations": ["E008"]
+        }
+      ],
+      "student_grades": {
+        "S001": 82,
+        "S002": 90,
+        "S003": 76,
+        "S004": 68,
+        "S005": 79
+      }
+    },
+    {
+      "id": "MATH150",
+      "name": "Calculus I",
+      "semester": "Fall",
+      "academic_year": 2023,
+      "credits": 3,
+      "professor": "Dr. Roberto Gomez",
+      "department": "Mathematics",
+      "topics": [
+        {
+          "id": "T009",
+          "name": "Limits",
+          "evaluations": ["E009", "E011"]
+        },
+        {
+          "id": "T010",
+          "name": "Derivatives",
+          "evaluations": ["E011", "E013"]
+        },
+        {
+          "id": "T011",
+          "name": "Integration",
+          "evaluations": ["E013", "E015"]
+        },
+        {
+          "id": "T012",
+          "name": "Applications",
+          "evaluations": ["E015"]
+        }
+      ],
+      "student_grades": {
+        "S001": 85,
+        "S002": 93,
+        "S003": 79,
+        "S004": 72,
+        "S005": 80
+      }
+    },
+    {
+      "id": "ENG101",
+      "name": "Technical Writing",
+      "semester": "Spring",
+      "academic_year": 2024,
+      "credits": 3,
+      "professor": "Dr. Carmen Ramos",
+      "department": "English",
+      "topics": [
+        {
+          "id": "T013",
+          "name": "Grammar and Syntax",
+          "evaluations": ["E010", "E012"]
+        },
+        {
+          "id": "T014",
+          "name": "Technical Documentation",
+          "evaluations": ["E012", "E014"]
+        },
+        {
+          "id": "T015",
+          "name": "Presentation Skills",
+          "evaluations": ["E014", "E016"]
+        },
+        {
+          "id": "T016",
+          "name": "Research Methods",
+          "evaluations": ["E016"]
+        }
+      ],
+      "student_grades": {
+        "S001": 88,
+        "S002": 85,
+        "S003": 82,
+        "S004": 75,
+        "S005": 78
+      }
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "E001",
+      "course_id": "CS101",
+      "type": "Quiz",
+      "date": "2023-09-15",
+      "topics_covered": ["T001", "T002"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 82,
+          "by_topic": {
+            "T001": 85,
+            "T002": 79
+          }
+        },
+        "S002": {
+          "total": 94,
+          "by_topic": {
+            "T001": 96,
+            "T002": 92
+          }
+        },
+        "S003": {
+          "total": 75,
+          "by_topic": {
+            "T001": 80,
+            "T002": 70
+          }
+        },
+        "S004": {
+          "total": 68,
+          "by_topic": {
+            "T001": 72,
+            "T002": 64
+          }
+        },
+        "S005": {
+          "total": 78,
+          "by_topic": {
+            "T001": 82,
+            "T002": 74
+          }
+        }
+      }
+    },
+    {
+      "id": "E002",
+      "course_id": "CS202",
+      "type": "Quiz",
+      "date": "2024-02-10",
+      "topics_covered": ["T005"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 80,
+          "by_topic": {
+            "T005": 80
+          }
+        },
+        "S002": {
+          "total": 88,
+          "by_topic": {
+            "T005": 88
+          }
+        },
+        "S003": {
+          "total": 73,
+          "by_topic": {
+            "T005": 73
+          }
+        },
+        "S004": {
+          "total": 65,
+          "by_topic": {
+            "T005": 65
+          }
+        },
+        "S005": {
+          "total": 76,
+          "by_topic": {
+            "T005": 76
+          }
+        }
+      }
+    },
+    {
+      "id": "E003",
+      "course_id": "CS101",
+      "type": "Midterm",
+      "date": "2023-10-20",
+      "topics_covered": ["T001", "T002", "T003"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 84,
+          "by_topic": {
+            "T001": 88,
+            "T002": 82,
+            "T003": 82
+          }
+        },
+        "S002": {
+          "total": 91,
+          "by_topic": {
+            "T001": 94,
+            "T002": 90,
+            "T003": 89
+          }
+        },
+        "S003": {
+          "total": 76,
+          "by_topic": {
+            "T001": 80,
+            "T002": 72,
+            "T003": 76
+          }
+        },
+        "S004": {
+          "total": 71,
+          "by_topic": {
+            "T001": 75,
+            "T002": 68,
+            "T003": 70
+          }
+        },
+        "S005": {
+          "total": 83,
+          "by_topic": {
+            "T001": 85,
+            "T002": 80,
+            "T003": 84
+          }
+        }
+      }
+    },
+    {
+      "id": "E004",
+      "course_id": "CS202",
+      "type": "Midterm",
+      "date": "2024-03-15",
+      "topics_covered": ["T005", "T006"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 79,
+          "by_topic": {
+            "T005": 82,
+            "T006": 76
+          }
+        },
+        "S002": {
+          "total": 87,
+          "by_topic": {
+            "T005": 90,
+            "T006": 84
+          }
+        },
+        "S003": {
+          "total": 74,
+          "by_topic": {
+            "T005": 76,
+            "T006": 72
+          }
+        },
+        "S004": {
+          "total": 66,
+          "by_topic": {
+            "T005": 70,
+            "T006": 62
+          }
+        },
+        "S005": {
+          "total": 75,
+          "by_topic": {
+            "T005": 78,
+            "T006": 72
+          }
+        }
+      }
+    },
+    {
+      "id": "E005",
+      "course_id": "CS101",
+      "type": "Project",
+      "date": "2023-11-10",
+      "topics_covered": ["T002", "T003", "T004"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 90,
+          "by_topic": {
+            "T002": 88,
+            "T003": 91,
+            "T004": 91
+          }
+        },
+        "S002": {
+          "total": 95,
+          "by_topic": {
+            "T002": 96,
+            "T003": 94,
+            "T004": 95
+          }
+        },
+        "S003": {
+          "total": 82,
+          "by_topic": {
+            "T002": 80,
+            "T003": 83,
+            "T004": 83
+          }
+        },
+        "S004": {
+          "total": 76,
+          "by_topic": {
+            "T002": 74,
+            "T003": 77,
+            "T004": 77
+          }
+        },
+        "S005": {
+          "total": 88,
+          "by_topic": {
+            "T002": 86,
+            "T003": 89,
+            "T004": 89
+          }
+        }
+      }
+    },
+    {
+      "id": "E006",
+      "course_id": "CS202",
+      "type": "Project",
+      "date": "2024-04-05",
+      "topics_covered": ["T006", "T007"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 85,
+          "by_topic": {
+            "T006": 83,
+            "T007": 87
+          }
+        },
+        "S002": {
+          "total": 92,
+          "by_topic": {
+            "T006": 90,
+            "T007": 94
+          }
+        },
+        "S003": {
+          "total": 78,
+          "by_topic": {
+            "T006": 76,
+            "T007": 80
+          }
+        },
+        "S004": {
+          "total": 70,
+          "by_topic": {
+            "T006": 68,
+            "T007": 72
+          }
+        },
+        "S005": {
+          "total": 82,
+          "by_topic": {
+            "T006": 80,
+            "T007": 84
+          }
+        }
+      }
+    },
+    {
+      "id": "E007",
+      "course_id": "CS101",
+      "type": "Final",
+      "date": "2023-12-15",
+      "topics_covered": ["T001", "T002", "T003", "T004"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 88,
+          "by_topic": {
+            "T001": 90,
+            "T002": 87,
+            "T003": 86,
+            "T004": 89
+          }
+        },
+        "S002": {
+          "total": 93,
+          "by_topic": {
+            "T001": 95,
+            "T002": 92,
+            "T003": 91,
+            "T004": 94
+          }
+        },
+        "S003": {
+          "total": 79,
+          "by_topic": {
+            "T001": 82,
+            "T002": 77,
+            "T003": 78,
+            "T004": 79
+          }
+        },
+        "S004": {
+          "total": 74,
+          "by_topic": {
+            "T001": 77,
+            "T002": 72,
+            "T003": 73,
+            "T004": 74
+          }
+        },
+        "S005": {
+          "total": 86,
+          "by_topic": {
+            "T001": 88,
+            "T002": 85,
+            "T003": 84,
+            "T004": 87
+          }
+        }
+      }
+    },
+    {
+      "id": "E008",
+      "course_id": "CS202",
+      "type": "Final",
+      "date": "2024-05-20",
+      "topics_covered": ["T005", "T006", "T007", "T008"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 83,
+          "by_topic": {
+            "T005": 85,
+            "T006": 82,
+            "T007": 84,
+            "T008": 81
+          }
+        },
+        "S002": {
+          "total": 90,
+          "by_topic": {
+            "T005": 92,
+            "T006": 89,
+            "T007": 91,
+            "T008": 88
+          }
+        },
+        "S003": {
+          "total": 77,
+          "by_topic": {
+            "T005": 79,
+            "T006": 76,
+            "T007": 78,
+            "T008": 75
+          }
+        },
+        "S004": {
+          "total": 69,
+          "by_topic": {
+            "T005": 71,
+            "T006": 68,
+            "T007": 70,
+            "T008": 67
+          }
+        },
+        "S005": {
+          "total": 80,
+          "by_topic": {
+            "T005": 82,
+            "T006": 79,
+            "T007": 81,
+            "T008": 78
+          }
+        }
+      }
+    },
+    {
+      "id": "E009",
+      "course_id": "MATH150",
+      "type": "Quiz",
+      "date": "2023-09-20",
+      "topics_covered": ["T009"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 82,
+          "by_topic": {
+            "T009": 82
+          }
+        },
+        "S002": {
+          "total": 91,
+          "by_topic": {
+            "T009": 91
+          }
+        },
+        "S003": {
+          "total": 75,
+          "by_topic": {
+            "T009": 75
+          }
+        },
+        "S004": {
+          "total": 68,
+          "by_topic": {
+            "T009": 68
+          }
+        },
+        "S005": {
+          "total": 77,
+          "by_topic": {
+            "T009": 77
+          }
+        }
+      }
+    },
+    {
+      "id": "E010",
+      "course_id": "ENG101",
+      "type": "Quiz",
+      "date": "2024-02-15",
+      "topics_covered": ["T013"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 85,
+          "by_topic": {
+            "T013": 85
+          }
+        },
+        "S002": {
+          "total": 82,
+          "by_topic": {
+            "T013": 82
+          }
+        },
+        "S003": {
+          "total": 80,
+          "by_topic": {
+            "T013": 80
+          }
+        },
+        "S004": {
+          "total": 73,
+          "by_topic": {
+            "T013": 73
+          }
+        },
+        "S005": {
+          "total": 75,
+          "by_topic": {
+            "T013": 75
+          }
+        }
+      }
+    },
+    {
+      "id": "E011",
+      "course_id": "MATH150",
+      "type": "Midterm",
+      "date": "2023-10-25",
+      "topics_covered": ["T009", "T010"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 83,
+          "by_topic": {
+            "T009": 85,
+            "T010": 81
+          }
+        },
+        "S002": {
+          "total": 92,
+          "by_topic": {
+            "T009": 94,
+            "T010": 90
+          }
+        },
+        "S003": {
+          "total": 77,
+          "by_topic": {
+            "T009": 79,
+            "T010": 75
+          }
+        },
+        "S004": {
+          "total": 70,
+          "by_topic": {
+            "T009": 72,
+            "T010": 68
+          }
+        },
+        "S005": {
+          "total": 79,
+          "by_topic": {
+            "T009": 81,
+            "T010": 77
+          }
+        }
+      }
+    },
+    {
+      "id": "E012",
+      "course_id": "ENG101",
+      "type": "Midterm",
+      "date": "2024-03-20",
+      "topics_covered": ["T013", "T014"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 87,
+          "by_topic": {
+            "T013": 89,
+            "T014": 85
+          }
+        },
+        "S002": {
+          "total": 84,
+          "by_topic": {
+            "T013": 86,
+            "T014": 82
+          }
+        },
+        "S003": {
+          "total": 81,
+          "by_topic": {
+            "T013": 83,
+            "T014": 79
+          }
+        },
+        "S004": {
+          "total": 74,
+          "by_topic": {
+            "T013": 76,
+            "T014": 72
+          }
+        },
+        "S005": {
+          "total": 77,
+          "by_topic": {
+            "T013": 79,
+            "T014": 75
+          }
+        }
+      }
+    },
+    {
+      "id": "E013",
+      "course_id": "MATH150",
+      "type": "Project",
+      "date": "2023-11-15",
+      "topics_covered": ["T010", "T011"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 86,
+          "by_topic": {
+            "T010": 85,
+            "T011": 87
+          }
+        },
+        "S002": {
+          "total": 95,
+          "by_topic": {
+            "T010": 94,
+            "T011": 96
+          }
+        },
+        "S003": {
+          "total": 80,
+          "by_topic": {
+            "T010": 79,
+            "T011": 81
+          }
+        },
+        "S004": {
+          "total": 73,
+          "by_topic": {
+            "T010": 72,
+            "T011": 74
+          }
+        },
+        "S005": {
+          "total": 81,
+          "by_topic": {
+            "T010": 80,
+            "T011": 82
+          }
+        }
+      }
+    },
+    {
+      "id": "E014",
+      "course_id": "ENG101",
+      "type": "Project",
+      "date": "2024-04-10",
+      "topics_covered": ["T014", "T015"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 90,
+          "by_topic": {
+            "T014": 89,
+            "T015": 91
+          }
+        },
+        "S002": {
+          "total": 86,
+          "by_topic": {
+            "T014": 85,
+            "T015": 87
+          }
+        },
+        "S003": {
+          "total": 83,
+          "by_topic": {
+            "T014": 82,
+            "T015": 84
+          }
+        },
+        "S004": {
+          "total": 76,
+          "by_topic": {
+            "T014": 75,
+            "T015": 77
+          }
+        },
+        "S005": {
+          "total": 79,
+          "by_topic": {
+            "T014": 78,
+            "T015": 80
+          }
+        }
+      }
+    },
+    {
+      "id": "E015",
+      "course_id": "MATH150",
+      "type": "Final",
+      "date": "2023-12-20",
+      "topics_covered": ["T009", "T010", "T011", "T012"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 87,
+          "by_topic": {
+            "T009": 89,
+            "T010": 86,
+            "T011": 88,
+            "T012": 85
+          }
+        },
+        "S002": {
+          "total": 94,
+          "by_topic": {
+            "T009": 96,
+            "T010": 94,
+            "T011": 95,
+            "T012": 91
+          }
+        },
+        "S003": {
+          "total": 81,
+          "by_topic": {
+            "T009": 83,
+            "T010": 80,
+            "T011": 82,
+            "T012": 79
+          }
+        },
+        "S004": {
+          "total": 74,
+          "by_topic": {
+            "T009": 76,
+            "T010": 73,
+            "T011": 75,
+            "T012": 72
+          }
+        },
+        "S005": {
+          "total": 82,
+          "by_topic": {
+            "T009": 84,
+            "T010": 81,
+            "T011": 83,
+            "T012": 80
+          }
+        }
+      }
+    },
+    {
+      "id": "E016",
+      "course_id": "ENG101",
+      "type": "Final",
+      "date": "2024-05-25",
+      "topics_covered": ["T013", "T014", "T015", "T016"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "student_scores": {
+        "S001": {
+          "total": 89,
+          "by_topic": {
+            "T013": 90,
+            "T014": 88,
+            "T015": 91,
+            "T016": 87
+          }
+        },
+        "S002": {
+          "total": 87,
+          "by_topic": {
+            "T013": 88,
+            "T014": 86,
+            "T015": 89,
+            "T016": 85
+          }
+        },
+        "S003": {
+          "total": 84,
+          "by_topic": {
+            "T013": 85,
+            "T014": 83,
+            "T015": 86,
+            "T016": 82
+          }
+        },
+        "S004": {
+          "total": 77,
+          "by_topic": {
+            "T013": 78,
+            "T014": 76,
+            "T015": 79,
+            "T016": 75
+          }
+        },
+        "S005": {
+          "total": 80,
+          "by_topic": {
+            "T013": 81,
+            "T014": 79,
+            "T015": 82,
+            "T016": 78
+          }
+        }
+      }
+    }
+  ]
+}

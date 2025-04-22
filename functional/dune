@@ -1,0 +1,4 @@
+(executable
+ (name statistical_analysis)
+ (libraries core yojson)
+ (preprocess (pps ppx_jane))) 
