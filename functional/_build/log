@@ -1,4 +1,4 @@
-# C:\Users\Siroko147\AppData\Local\opam\default\bin\dune.exe exec ./_build/default/statistical_analysis.exe
+# C:\Users\Siroko147\AppData\Local\opam\default\bin\dune.exe exec _build/default/statistical_analysis.exe
 # OCAMLPARAM: unset
 # Shared cache: enabled-except-user-rules
 # Shared cache location:
@@ -15,7 +15,4 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\SIROKO~1\AppData\Local\Temp\dune_211193_output
-$ (cd _build/default && C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlc.opt.exe -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I .statistical_analysis.eobjs/byte -I C:\Users\Siroko147\AppData\Local\opam\default\lib\seq -I C:\Users\Siroko147\AppData\Local\opam\default\lib\yojson -no-alias-deps -opaque -o .statistical_analysis.eobjs/byte/dune__exe__Statistical_analysis.cmo -c -impl statistical_analysis.ml)
-$ (cd _build/default && C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I .statistical_analysis.eobjs/byte -I .statistical_analysis.eobjs/native -I C:\Users\Siroko147\AppData\Local\opam\default\lib\seq -I C:\Users\Siroko147\AppData\Local\opam\default\lib\yojson -intf-suffix .ml -no-alias-deps -opaque -o .statistical_analysis.eobjs/native/dune__exe__Statistical_analysis.cmx -c -impl statistical_analysis.ml)
-$ (cd _build/default && C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o statistical_analysis.exe C:\Users\Siroko147\AppData\Local\opam\default\lib\seq\seq.cmxa C:\Users\Siroko147\AppData\Local\opam\default\lib\yojson\yojson.cmxa .statistical_analysis.eobjs/native/dune__exe__Statistical_analysis.cmx)
+$ C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\SIROKO~1\AppData\Local\Temp\dune_2b983e_output

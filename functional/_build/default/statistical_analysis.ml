@@ -5,7 +5,6 @@ type student = {
   id: string;
   name: string;
   program: string;
-  academic_year: int;
   gpa: float;
   courses_taken: string list;
 }
@@ -35,7 +34,10 @@ type evaluation = {
   weight: float option;
   topic_ids: string list;
   course_id: string;
-  student_scores: (string * (string * float) list) list; (* student_id * (topic_id * score) list *)
+  student_scores: (string * (string * float) list) list;
+  passing_score: float option;
+  excellence_threshold: float option;
+  groups: (string * string list * float) list option;  (* group_id * members * score *)
 }
 
 type dataset = {
@@ -83,7 +85,6 @@ let parse_student json =
     id = json |> member "id" |> to_string;
     name = json |> member "name" |> to_string;
     program = json |> member "program" |> to_string;
-    academic_year = json |> member "academic_year" |> to_int;
     gpa = json |> member "gpa" |> to_number_as_float;
     courses_taken = json |> member "courses_taken" |> to_list |> List.map to_string;
   }
@@ -115,14 +116,31 @@ let parse_evaluation json =
       (student_id, by_topic)
     )
   in
+  let groups = 
+    try
+      Some (json |> member "groups" |> to_list |> List.map (fun group ->
+        let id = group |> member "id" |> to_string in
+        let members = group |> member "members" |> to_list |> List.map to_string in
+        let score = group |> member "score" |> to_number_as_float in
+        (id, members, score)
+      ))
+    with _ -> None
+  in
+  let to_float_or_null json =
+    try Some (to_number_as_float json)
+    with _ -> None
+  in
   {
     id = json |> member "id" |> to_string;
     name = json |> member "type" |> to_string_option;
     date = json |> member "date" |> to_string;
-    weight = json |> member "weight" |> to_float_option;
+    weight = json |> member "weight" |> to_float_or_null;
     topic_ids = json |> member "topics_covered" |> to_list |> List.map to_string;
     course_id = json |> member "course_id" |> to_string;
     student_scores;
+    passing_score = json |> member "passing_score" |> to_float_or_null;
+    excellence_threshold = json |> member "excellence_threshold" |> to_float_or_null;
+    groups;
   }
 
 let parse_dataset json =
@@ -266,6 +284,68 @@ let calculate_topic_correlations dataset =
     ) acc topic_ids
   ) StringMap.empty topic_ids
 
+(* 5. Pass/Fail and Excellence Rates Analysis *)
+let calculate_pass_excellence_rates dataset =
+  let evaluation_stats =
+    List.fold_left (fun acc eval ->
+      let total_students = float_of_int (List.length eval.student_scores) in
+      let passing_score = eval.passing_score |> Option.value ~default:60. in
+      let excellence_threshold = eval.excellence_threshold |> Option.value ~default:85. in
+      
+      let (pass_count, excellence_count) =
+        List.fold_left (fun (pass, excel) (_, by_topic) ->
+          let total = List.fold_left (fun s (_, v) -> s +. v) 0. by_topic in
+          let new_pass = if total >= passing_score then pass + 1 else pass in
+          let new_excel = if total >= excellence_threshold then excel + 1 else excel in
+          (new_pass, new_excel)
+        ) (0, 0) eval.student_scores
+      in
+      
+      let pass_rate = float_of_int pass_count /. total_students in
+      let excellence_rate = float_of_int excellence_count /. total_students in
+      
+      StringMap.add eval.id (`Assoc [
+        ("pass_rate", `Float pass_rate);
+        ("excellence_rate", `Float excellence_rate);
+        ("passing_score", `Float passing_score);
+        ("excellence_threshold", `Float excellence_threshold)
+      ]) acc
+    ) StringMap.empty dataset.evaluations
+  in
+  evaluation_stats
+
+(* 6. Group Performance Analysis *)
+let calculate_group_performance dataset =
+  let group_stats =
+    List.fold_left (fun acc eval ->
+      match eval.groups with
+      | Some groups ->
+          let group_performance =
+            List.fold_left (fun acc (group_id, members, avg_score) ->
+              let variance = 
+                List.fold_left (fun acc member_id ->
+                  let member_scores = 
+                    List.assoc member_id eval.student_scores 
+                    |> List.map snd 
+                    |> List.fold_left (+.) 0.
+                  in
+                  acc +. (member_scores -. avg_score) ** 2.
+                ) 0. members /. float_of_int (List.length members)
+              in
+              let std_dev = sqrt variance in
+              StringMap.add group_id (`Assoc [
+                ("avg_score", `Float avg_score);
+                ("std_dev", `Float std_dev);
+                ("member_count", `Float (float_of_int (List.length members)))
+              ]) acc
+            ) StringMap.empty groups
+          in
+          StringMap.add eval.id group_performance acc
+      | None -> acc
+    ) StringMap.empty dataset.evaluations
+  in
+  group_stats
+
 (* Main function to run all analyses *)
 let analyze_data json_file =
   let json = Yojson.Basic.from_file json_file in
@@ -274,6 +354,17 @@ let analyze_data json_file =
   let student_trends = calculate_student_trends dataset in
   let critical_points = calculate_critical_points dataset in
   let topic_correlations = calculate_topic_correlations dataset in
+  let pass_excellence_rates = calculate_pass_excellence_rates dataset in
+  let group_performance = calculate_group_performance dataset in
+  
+  (* Convert group performance to the correct JSON structure *)
+  let group_performance_json = 
+    StringMap.bindings group_performance
+    |> List.map (fun (eval_id, group_map) ->
+      (eval_id, `Assoc (StringMap.bindings group_map))
+    )
+  in
+  
   let output_json = `Assoc [
     ("topic_performance", `Assoc (
       TopicCourseMap.bindings topic_performance |> List.map (fun ((topic_id, course_id), v) ->
@@ -283,9 +374,11 @@ let analyze_data json_file =
     ("student_trends", `Assoc (StringMap.bindings student_trends));
     ("critical_points", `Assoc (StringMap.bindings critical_points));
     ("topic_correlations", `Assoc (StringMap.bindings topic_correlations));
+    ("pass_excellence_rates", `Assoc (StringMap.bindings pass_excellence_rates));
+    ("group_performance", `Assoc group_performance_json);
   ] in
   Yojson.Basic.to_file "statistical_results.json" output_json 
 
 (* Entry point *)
 let () =
-  analyze_data "../entradas/student-performance-data.json" 
+  analyze_data "../entradas/student-performance-data.json"

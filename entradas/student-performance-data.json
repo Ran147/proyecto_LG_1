@@ -4,7 +4,6 @@
       "id": "S001",
       "name": "Ana Garcia",
       "program": "Computer Science",
-      "academic_year": 2,
       "gpa": 3.65,
       "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
     },
@@ -12,7 +11,6 @@
       "id": "S002",
       "name": "Carlos Rodriguez",
       "program": "Computer Science",
-      "academic_year": 2,
       "gpa": 3.82,
       "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
     },
@@ -20,7 +18,6 @@
       "id": "S003",
       "name": "Sofia Martinez",
       "program": "Computer Science",
-      "academic_year": 2,
       "gpa": 3.41,
       "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
     },
@@ -28,7 +25,6 @@
       "id": "S004",
       "name": "Diego Hernandez",
       "program": "Computer Science",
-      "academic_year": 2,
       "gpa": 2.95,
       "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
     },
@@ -36,7 +32,6 @@
       "id": "S005",
       "name": "Laura Mendez",
       "program": "Computer Science",
-      "academic_year": 2,
       "gpa": 3.25,
       "courses_taken": ["CS101", "CS202", "MATH150", "ENG101"]
     }
@@ -59,12 +54,12 @@
         {
           "id": "T002",
           "name": "Control Structures",
-          "evaluations": ["E001", "E003", "E005"]
+          "evaluations": ["E001", "E003", "E005", "E017"]
         },
         {
           "id": "T003",
           "name": "Functions",
-          "evaluations": ["E003", "E005"]
+          "evaluations": ["E003", "E005", "E017"]
         },
         {
           "id": "T004",
@@ -97,12 +92,12 @@
         {
           "id": "T006",
           "name": "Trees",
-          "evaluations": ["E004", "E006"]
+          "evaluations": ["E004", "E006", "E018"]
         },
         {
           "id": "T007",
           "name": "Hash Tables",
-          "evaluations": ["E006", "E008"]
+          "evaluations": ["E006", "E008", "E018"]
         },
         {
           "id": "T008",
@@ -963,6 +958,122 @@
             "T014": 79,
             "T015": 82,
             "T016": 78
+          }
+        }
+      }
+    },
+    {
+      "id": "E017",
+      "course_id": "CS101",
+      "type": "Group Assignment",
+      "date": "2023-10-05",
+      "topics_covered": ["T002", "T003"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "groups": [
+        {
+          "id": "G001",
+          "members": ["S001", "S002"],
+          "score": 95
+        },
+        {
+          "id": "G002",
+          "members": ["S003", "S004", "S005"],
+          "score": 88
+        }
+      ],
+      "student_scores": {
+        "S001": {
+          "total": 95,
+          "by_topic": {
+            "T002": 96,
+            "T003": 94
+          }
+        },
+        "S002": {
+          "total": 95,
+          "by_topic": {
+            "T002": 96,
+            "T003": 94
+          }
+        },
+        "S003": {
+          "total": 88,
+          "by_topic": {
+            "T002": 89,
+            "T003": 87
+          }
+        },
+        "S004": {
+          "total": 88,
+          "by_topic": {
+            "T002": 89,
+            "T003": 87
+          }
+        },
+        "S005": {
+          "total": 88,
+          "by_topic": {
+            "T002": 89,
+            "T003": 87
+          }
+        }
+      }
+    },
+    {
+      "id": "E018",
+      "course_id": "CS202",
+      "type": "Group Assignment",
+      "date": "2024-03-01",
+      "topics_covered": ["T006", "T007"],
+      "passing_score": 60,
+      "excellence_threshold": 85,
+      "groups": [
+        {
+          "id": "G003",
+          "members": ["S001", "S003"],
+          "score": 92
+        },
+        {
+          "id": "G004",
+          "members": ["S002", "S004", "S005"],
+          "score": 87
+        }
+      ],
+      "student_scores": {
+        "S001": {
+          "total": 92,
+          "by_topic": {
+            "T006": 93,
+            "T007": 91
+          }
+        },
+        "S002": {
+          "total": 87,
+          "by_topic": {
+            "T006": 88,
+            "T007": 86
+          }
+        },
+        "S003": {
+          "total": 92,
+          "by_topic": {
+            "T006": 93,
+            "T007": 91
+          }
+        },
+        "S004": {
+          "total": 87,
+          "by_topic": {
+            "T006": 88,
+            "T007": 86
+          }
+        },
+        "S005": {
+          "total": 87,
+          "by_topic": {
+            "T006": 88,
+            "T007": 86
           }
         }
       }
