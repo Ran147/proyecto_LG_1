@@ -1,3 +1,2 @@
-(lang dune 2.9)
+(lang dune 2.0)
 (name statistical_analysis)
-(using menhir 2.1) 

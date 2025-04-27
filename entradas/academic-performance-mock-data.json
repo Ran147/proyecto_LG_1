@@ -1,0 +1,964 @@
+{
+  "students": [
+    {
+      "student_id": "S001",
+      "name": "Alex Johnson",
+      "cumulative_gpa": 3.7
+    },
+    {
+      "student_id": "S002",
+      "name": "Taylor Smith",
+      "cumulative_gpa": 3.2
+    },
+    {
+      "student_id": "S003",
+      "name": "Jordan Lee",
+      "cumulative_gpa": 3.9
+    },
+    {
+      "student_id": "S004",
+      "name": "Casey Brown",
+      "cumulative_gpa": 2.8
+    },
+    {
+      "student_id": "S005",
+      "name": "Morgan Wilson",
+      "cumulative_gpa": 3.5
+    }
+  ],
+  "courses": [
+    {
+      "course_id": "CS101",
+      "title": "Introduction to Programming",
+      "topics": [
+        {
+          "topic_id": "T001",
+          "name": "Variables and Data Types"
+        },
+        {
+          "topic_id": "T002",
+          "name": "Control Structures"
+        },
+        {
+          "topic_id": "T003",
+          "name": "Functions"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "course_id": "CS201",
+      "title": "Data Structures",
+      "topics": [
+        {
+          "topic_id": "T004",
+          "name": "Arrays"
+        },
+        {
+          "topic_id": "T005",
+          "name": "Linked Lists"
+        },
+        {
+          "topic_id": "T006",
+          "name": "Trees"
+        }
+      ],
+      "prerequisites": ["CS101"]
+    },
+    {
+      "course_id": "MATH202",
+      "title": "Statistics",
+      "topics": [
+        {
+          "topic_id": "T007",
+          "name": "Probability"
+        },
+        {
+          "topic_id": "T008",
+          "name": "Descriptive Statistics"
+        },
+        {
+          "topic_id": "T009",
+          "name": "Inferential Statistics"
+        }
+      ],
+      "prerequisites": []
+    },
+    {
+      "course_id": "CS301",
+      "title": "Algorithms",
+      "topics": [
+        {
+          "topic_id": "T010",
+          "name": "Sorting Algorithms"
+        },
+        {
+          "topic_id": "T011",
+          "name": "Graph Algorithms"
+        },
+        {
+          "topic_id": "T012",
+          "name": "Dynamic Programming"
+        }
+      ],
+      "prerequisites": ["CS201"]
+    },
+    {
+      "course_id": "CS401",
+      "title": "Machine Learning",
+      "topics": [
+        {
+          "topic_id": "T013",
+          "name": "Supervised Learning"
+        },
+        {
+          "topic_id": "T014",
+          "name": "Unsupervised Learning"
+        },
+        {
+          "topic_id": "T015",
+          "name": "Neural Networks"
+        }
+      ],
+      "prerequisites": ["CS301", "MATH202"]
+    }
+  ],
+  "enrollments": [
+    {
+      "enrollment_id": "E001",
+      "student_id": "S001",
+      "course_id": "CS101",
+      "semester": "Fall",
+      "year": 2023,
+      "attendance_percentage": 92,
+      "final_grade": 88,
+      "evaluations": [
+        {
+          "evaluation_id": "EV001",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 90,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 95},
+            {"topic_id": "T002", "score": 90},
+            {"topic_id": "T003", "score": 85}
+          ]
+        },
+        {
+          "evaluation_id": "EV002",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 85,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 85},
+            {"topic_id": "T002", "score": 90},
+            {"topic_id": "T003", "score": 80}
+          ]
+        },
+        {
+          "evaluation_id": "EV003",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 88,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 90},
+            {"topic_id": "T002", "score": 85},
+            {"topic_id": "T003", "score": 89}
+          ]
+        },
+        {
+          "evaluation_id": "EV004",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 92,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 90},
+            {"topic_id": "T002", "score": 95},
+            {"topic_id": "T003", "score": 91}
+          ]
+        },
+        {
+          "evaluation_id": "EV005",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 87,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 85},
+            {"topic_id": "T002", "score": 88},
+            {"topic_id": "T003", "score": 88}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E002",
+      "student_id": "S001",
+      "course_id": "CS201",
+      "semester": "Spring",
+      "year": 2024,
+      "attendance_percentage": 88,
+      "final_grade": 85,
+      "evaluations": [
+        {
+          "evaluation_id": "EV006",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 82,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 85},
+            {"topic_id": "T005", "score": 80},
+            {"topic_id": "T006", "score": 81}
+          ]
+        },
+        {
+          "evaluation_id": "EV007",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 84,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 86},
+            {"topic_id": "T005", "score": 82},
+            {"topic_id": "T006", "score": 84}
+          ]
+        },
+        {
+          "evaluation_id": "EV008",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 87,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 90},
+            {"topic_id": "T005", "score": 85},
+            {"topic_id": "T006", "score": 86}
+          ]
+        },
+        {
+          "evaluation_id": "EV009",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 89,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 90},
+            {"topic_id": "T005", "score": 88},
+            {"topic_id": "T006", "score": 89}
+          ]
+        },
+        {
+          "evaluation_id": "EV010",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 84,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 85},
+            {"topic_id": "T005", "score": 83},
+            {"topic_id": "T006", "score": 84}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E003",
+      "student_id": "S002",
+      "course_id": "CS101",
+      "semester": "Fall",
+      "year": 2023,
+      "attendance_percentage": 78,
+      "final_grade": 75,
+      "evaluations": [
+        {
+          "evaluation_id": "EV011",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 72,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 75},
+            {"topic_id": "T002", "score": 70},
+            {"topic_id": "T003", "score": 71}
+          ]
+        },
+        {
+          "evaluation_id": "EV012",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 2,
+          "score": 68,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 70},
+            {"topic_id": "T002", "score": 65},
+            {"topic_id": "T003", "score": 69}
+          ]
+        },
+        {
+          "evaluation_id": "EV013",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 76,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 80},
+            {"topic_id": "T002", "score": 75},
+            {"topic_id": "T003", "score": 73}
+          ]
+        },
+        {
+          "evaluation_id": "EV014",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 80,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 82},
+            {"topic_id": "T002", "score": 78},
+            {"topic_id": "T003", "score": 80}
+          ]
+        },
+        {
+          "evaluation_id": "EV015",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 78,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 80},
+            {"topic_id": "T002", "score": 76},
+            {"topic_id": "T003", "score": 78}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E004",
+      "student_id": "S002",
+      "course_id": "MATH202",
+      "semester": "Spring",
+      "year": 2024,
+      "attendance_percentage": 82,
+      "final_grade": 76,
+      "evaluations": [
+        {
+          "evaluation_id": "EV016",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 74,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 75},
+            {"topic_id": "T008", "score": 74},
+            {"topic_id": "T009", "score": 73}
+          ]
+        },
+        {
+          "evaluation_id": "EV017",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 75,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 78},
+            {"topic_id": "T008", "score": 75},
+            {"topic_id": "T009", "score": 72}
+          ]
+        },
+        {
+          "evaluation_id": "EV018",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 76,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 78},
+            {"topic_id": "T008", "score": 76},
+            {"topic_id": "T009", "score": 74}
+          ]
+        },
+        {
+          "evaluation_id": "EV019",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 78,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 80},
+            {"topic_id": "T008", "score": 77},
+            {"topic_id": "T009", "score": 77}
+          ]
+        },
+        {
+          "evaluation_id": "EV020",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 77,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 79},
+            {"topic_id": "T008", "score": 76},
+            {"topic_id": "T009", "score": 76}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E005",
+      "student_id": "S003",
+      "course_id": "CS101",
+      "semester": "Fall",
+      "year": 2023,
+      "attendance_percentage": 98,
+      "final_grade": 95,
+      "evaluations": [
+        {
+          "evaluation_id": "EV021",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 97,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 98},
+            {"topic_id": "T002", "score": 97},
+            {"topic_id": "T003", "score": 96}
+          ]
+        },
+        {
+          "evaluation_id": "EV022",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 94,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 95},
+            {"topic_id": "T002", "score": 94},
+            {"topic_id": "T003", "score": 93}
+          ]
+        },
+        {
+          "evaluation_id": "EV023",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 96,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 97},
+            {"topic_id": "T002", "score": 96},
+            {"topic_id": "T003", "score": 95}
+          ]
+        },
+        {
+          "evaluation_id": "EV024",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 98,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 99},
+            {"topic_id": "T002", "score": 98},
+            {"topic_id": "T003", "score": 97}
+          ]
+        },
+        {
+          "evaluation_id": "EV025",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 93,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 94},
+            {"topic_id": "T002", "score": 93},
+            {"topic_id": "T003", "score": 92}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E006",
+      "student_id": "S003",
+      "course_id": "CS201",
+      "semester": "Spring",
+      "year": 2024,
+      "attendance_percentage": 96,
+      "final_grade": 94,
+      "evaluations": [
+        {
+          "evaluation_id": "EV026",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 95,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 96},
+            {"topic_id": "T005", "score": 94},
+            {"topic_id": "T006", "score": 95}
+          ]
+        },
+        {
+          "evaluation_id": "EV027",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 93,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 94},
+            {"topic_id": "T005", "score": 92},
+            {"topic_id": "T006", "score": 93}
+          ]
+        },
+        {
+          "evaluation_id": "EV028",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 95,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 96},
+            {"topic_id": "T005", "score": 94},
+            {"topic_id": "T006", "score": 95}
+          ]
+        },
+        {
+          "evaluation_id": "EV029",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 92,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 93},
+            {"topic_id": "T005", "score": 91},
+            {"topic_id": "T006", "score": 92}
+          ]
+        },
+        {
+          "evaluation_id": "EV030",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 94,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 95},
+            {"topic_id": "T005", "score": 93},
+            {"topic_id": "T006", "score": 94}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E007",
+      "student_id": "S003",
+      "course_id": "MATH202",
+      "semester": "Fall",
+      "year": 2024,
+      "attendance_percentage": 95,
+      "final_grade": 92,
+      "evaluations": [
+        {
+          "evaluation_id": "EV031",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 90,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 91},
+            {"topic_id": "T008", "score": 90},
+            {"topic_id": "T009", "score": 89}
+          ]
+        },
+        {
+          "evaluation_id": "EV032",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 91,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 92},
+            {"topic_id": "T008", "score": 91},
+            {"topic_id": "T009", "score": 90}
+          ]
+        },
+        {
+          "evaluation_id": "EV033",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 93,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 94},
+            {"topic_id": "T008", "score": 93},
+            {"topic_id": "T009", "score": 92}
+          ]
+        },
+        {
+          "evaluation_id": "EV034",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 94,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 95},
+            {"topic_id": "T008", "score": 94},
+            {"topic_id": "T009", "score": 93}
+          ]
+        },
+        {
+          "evaluation_id": "EV035",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 92,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 93},
+            {"topic_id": "T008", "score": 92},
+            {"topic_id": "T009", "score": 91}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E008",
+      "student_id": "S004",
+      "course_id": "CS101",
+      "semester": "Fall",
+      "year": 2023,
+      "attendance_percentage": 65,
+      "final_grade": 68,
+      "evaluations": [
+        {
+          "evaluation_id": "EV036",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 2,
+          "score": 65,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 67},
+            {"topic_id": "T002", "score": 64},
+            {"topic_id": "T003", "score": 64}
+          ]
+        },
+        {
+          "evaluation_id": "EV037",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 2,
+          "score": 62,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 64},
+            {"topic_id": "T002", "score": 60},
+            {"topic_id": "T003", "score": 62}
+          ]
+        },
+        {
+          "evaluation_id": "EV038",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 68,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 70},
+            {"topic_id": "T002", "score": 67},
+            {"topic_id": "T003", "score": 67}
+          ]
+        },
+        {
+          "evaluation_id": "EV039",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 73,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 75},
+            {"topic_id": "T002", "score": 72},
+            {"topic_id": "T003", "score": 72}
+          ]
+        },
+        {
+          "evaluation_id": "EV040",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 71,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 73},
+            {"topic_id": "T002", "score": 70},
+            {"topic_id": "T003", "score": 70}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E009",
+      "student_id": "S004",
+      "course_id": "MATH202",
+      "semester": "Spring",
+      "year": 2024,
+      "attendance_percentage": 60,
+      "final_grade": 65,
+      "evaluations": [
+        {
+          "evaluation_id": "EV041",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 2,
+          "score": 62,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 64},
+            {"topic_id": "T008", "score": 61},
+            {"topic_id": "T009", "score": 61}
+          ]
+        },
+        {
+          "evaluation_id": "EV042",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 2,
+          "score": 60,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 62},
+            {"topic_id": "T008", "score": 59},
+            {"topic_id": "T009", "score": 59}
+          ]
+        },
+        {
+          "evaluation_id": "EV043",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 65,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 67},
+            {"topic_id": "T008", "score": 64},
+            {"topic_id": "T009", "score": 64}
+          ]
+        },
+        {
+          "evaluation_id": "EV044",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 70,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 72},
+            {"topic_id": "T008", "score": 69},
+            {"topic_id": "T009", "score": 69}
+          ]
+        },
+        {
+          "evaluation_id": "EV045",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 68,
+          "topic_scores": [
+            {"topic_id": "T007", "score": 70},
+            {"topic_id": "T008", "score": 67},
+            {"topic_id": "T009", "score": 67}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E010",
+      "student_id": "S005",
+      "course_id": "CS101",
+      "semester": "Fall",
+      "year": 2023,
+      "attendance_percentage": 85,
+      "final_grade": 82,
+      "evaluations": [
+        {
+          "evaluation_id": "EV046",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 80,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 82},
+            {"topic_id": "T002", "score": 79},
+            {"topic_id": "T003", "score": 79}
+          ]
+        },
+        {
+          "evaluation_id": "EV047",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 83,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 85},
+            {"topic_id": "T002", "score": 82},
+            {"topic_id": "T003", "score": 82}
+          ]
+        },
+        {
+          "evaluation_id": "EV048",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 81,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 83},
+            {"topic_id": "T002", "score": 80},
+            {"topic_id": "T003", "score": 80}
+          ]
+        },
+        {
+          "evaluation_id": "EV049",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 84,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 86},
+            {"topic_id": "T002", "score": 83},
+            {"topic_id": "T003", "score": 83}
+          ]
+        },
+        {
+          "evaluation_id": "EV050",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 82,
+          "topic_scores": [
+            {"topic_id": "T001", "score": 84},
+            {"topic_id": "T002", "score": 81},
+            {"topic_id": "T003", "score": 81}
+          ]
+        }
+      ]
+    },
+    {
+      "enrollment_id": "E011",
+      "student_id": "S005",
+      "course_id": "CS201",
+      "semester": "Spring",
+      "year": 2024,
+      "attendance_percentage": 88,
+      "final_grade": 85,
+      "evaluations": [
+        {
+          "evaluation_id": "EV051",
+          "type": "quiz",
+          "weight": 10,
+          "time_taken": "early",
+          "attempts": 1,
+          "score": 84,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 86},
+            {"topic_id": "T005", "score": 83},
+            {"topic_id": "T006", "score": 83}
+          ]
+        },
+        {
+          "evaluation_id": "EV052",
+          "type": "assignment",
+          "weight": 20,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 85,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 87},
+            {"topic_id": "T005", "score": 84},
+            {"topic_id": "T006", "score": 84}
+          ]
+        },
+        {
+          "evaluation_id": "EV053",
+          "type": "midterm",
+          "weight": 30,
+          "time_taken": "mid",
+          "attempts": 1,
+          "score": 86,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 88},
+            {"topic_id": "T005", "score": 85},
+            {"topic_id": "T006", "score": 85}
+          ]
+        },
+        {
+          "evaluation_id": "EV054",
+          "type": "project",
+          "weight": 15,
+          "time_taken": "late",
+          "attempts": 1,
+          "score": 87,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 89},
+            {"topic_id": "T005", "score": 86},
+            {"topic_id": "T006", "score": 86}
+          ]
+        },
+        {
+          "evaluation_id": "EV055",
+          "type": "final",
+          "weight": 25,
+          "time_taken": "final",
+          "attempts": 1,
+          "score": 84,
+          "topic_scores": [
+            {"topic_id": "T004", "score": 86},
+            {"topic_id": "T005", "score": 83},
+            {"topic_id": "T006", "score": 83}
+          ]
+        }
+      ]
+    }
+  ]
+}

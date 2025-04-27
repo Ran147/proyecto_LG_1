@@ -1,384 +1,369 @@
 open Yojson.Basic.Util
+open Yojson.Basic
 
-(* Type definitions for our data structures *)
-type student = {
-  id: string;
-  name: string;
-  program: string;
-  gpa: float;
-  courses_taken: string list;
-}
-
-type topic = {
-  id: string;
-  name: string;
-  evaluations: string list;
-}
-
-type course = {
-  id: string;
-  name: string;
-  semester: string;
-  academic_year: int;
-  credits: int;
-  professor: string;
-  department: string;
-  topics: topic list;
-  student_grades: (string * float) list;
-}
-
+(* Type definitions *)
 type evaluation = {
-  id: string;
-  name: string option;
-  date: string;
-  weight: float option;
-  topic_ids: string list;
-  course_id: string;
-  student_scores: (string * (string * float) list) list;
-  passing_score: float option;
-  excellence_threshold: float option;
-  groups: (string * string list * float) list option;  (* group_id * members * score *)
+  evaluation_id: string;
+  eval_type: string;
+  weight: float;
+  time_taken: string;
+  attempts: int;
+  score: float;
+  topic_scores: (string * float) list;
 }
 
-type dataset = {
-  students: student list;
-  courses: course list;
+type enrollment = {
+  enrollment_id: string;
+  student_id: string;
+  course_id: string;
+  semester: string;
+  year: int;
+  attendance_percentage: float;
+  final_grade: float;
   evaluations: evaluation list;
 }
 
-module StringPair = struct
-  type t = string * string
-  let compare = compare
-end
+type student = {
+  student_id: string;
+  name: string;
+  cumulative_gpa: float;
+}
 
-module TopicCourseMap = Map.Make(StringPair)
-module StringMap = Map.Make(String)
+type course = {
+  course_id: string;
+  title: string;
+  topics: (string * string) list;
+  prerequisites: string list;
+}
 
-(* Helper functions *)
-let list_take n lst =
-  let rec aux acc n = function
-    | [] -> List.rev acc
-    | hd::tl when n > 0 -> aux (hd::acc) (n-1) tl
-    | _ -> List.rev acc
-  in
-  aux [] n lst
+type academic_data = {
+  students: student list;
+  courses: course list;
+  enrollments: enrollment list;
+}
 
-let list_filter_map f lst =
-  let rec aux acc = function
-    | [] -> List.rev acc
-    | hd::tl ->
-        match f hd with
-        | Some x -> aux (x::acc) tl
-        | None -> aux acc tl
-  in
-  aux [] lst
+(* Analysis result types *)
+type regression_result = {
+  weighted_score: float;
+  attendance: float;
+  final_grade: float;
+}
 
-(* Helper function to convert JSON numbers to float *)
-let to_number_as_float = function
-  | `Int i -> float_of_int i
-  | `Float f -> f
-  | json -> raise (Type_error ("Expected number (int/float)", json))
+type logistic_result = {
+  prior_gpa: float;
+  avg_eval_score: float;
+  attendance: float;
+  will_pass: bool;
+}
 
-(* JSON parsing functions *)
-let parse_student json =
+type cluster_result = {
+  student_id: string;
+  topic_scores: (string * float) list;
+  attendance: float;
+  final_grade: float;
+}
+
+type time_series_result = {
+  semester: string;
+  year: int;
+  avg_grade: float;
+}
+
+type correlation_result = {
+  topic_id: string;
+  avg_topic_score: float;
+  avg_final_grade: float;
+}
+
+(* JSON output types and functions *)
+type analysis_results = {
+  regression: regression_result list;
+  logistic: logistic_result list;
+  clustering: cluster_result list;
+  time_series: time_series_result list;
+  correlation: correlation_result list;
+}
+
+let regression_to_json r =
+  `Assoc [
+    ("weighted_score", `Float r.weighted_score);
+    ("attendance", `Float r.attendance);
+    ("final_grade", `Float r.final_grade);
+  ]
+
+let logistic_to_json r =
+  `Assoc [
+    ("prior_gpa", `Float r.prior_gpa);
+    ("avg_eval_score", `Float r.avg_eval_score);
+    ("attendance", `Float r.attendance);
+    ("will_pass", `Bool r.will_pass);
+  ]
+
+let cluster_to_json r =
+  `Assoc [
+    ("student_id", `String r.student_id);
+    ("topic_scores", `List (List.map (fun (topic_id, score) ->
+      `Assoc [
+        ("topic_id", `String topic_id);
+        ("score", `Float score);
+      ]
+    ) r.topic_scores));
+    ("attendance", `Float r.attendance);
+    ("final_grade", `Float r.final_grade);
+  ]
+
+let time_series_to_json r =
+  `Assoc [
+    ("semester", `String r.semester);
+    ("year", `Int r.year);
+    ("avg_grade", `Float r.avg_grade);
+  ]
+
+let correlation_to_json r =
+  `Assoc [
+    ("topic_id", `String r.topic_id);
+    ("avg_topic_score", `Float r.avg_topic_score);
+    ("avg_final_grade", `Float r.avg_final_grade);
+  ]
+
+let results_to_json results =
+  `Assoc [
+    ("regression", `List (List.map regression_to_json results.regression));
+    ("logistic", `List (List.map logistic_to_json results.logistic));
+    ("clustering", `List (List.map cluster_to_json results.clustering));
+    ("time_series", `List (List.map time_series_to_json results.time_series));
+    ("correlation", `List (List.map correlation_to_json results.correlation));
+  ]
+
+let write_results_to_file results filename =
+  let json = results_to_json results in
+  let channel = open_out filename in
+  Yojson.Basic.to_channel channel json;
+  close_out channel
+
+(* Data loading and parsing functions *)
+let parse_evaluation json =
   {
-    id = json |> member "id" |> to_string;
-    name = json |> member "name" |> to_string;
-    program = json |> member "program" |> to_string;
-    gpa = json |> member "gpa" |> to_number_as_float;
-    courses_taken = json |> member "courses_taken" |> to_list |> List.map to_string;
+    evaluation_id = json |> member "evaluation_id" |> to_string;
+    eval_type = json |> member "type" |> to_string;
+    weight = json |> member "weight" |> to_float;
+    time_taken = json |> member "time_taken" |> to_string;
+    attempts = json |> member "attempts" |> to_int;
+    score = json |> member "score" |> to_float;
+    topic_scores = json |> member "topic_scores" |> to_list |> List.map (fun t ->
+      (t |> member "topic_id" |> to_string, t |> member "score" |> to_float)
+    );
   }
 
-let parse_topic json =
+let parse_enrollment json =
   {
-    id = json |> member "id" |> to_string;
+    enrollment_id = json |> member "enrollment_id" |> to_string;
+    student_id = json |> member "student_id" |> to_string;
+    course_id = json |> member "course_id" |> to_string;
+    semester = json |> member "semester" |> to_string;
+    year = json |> member "year" |> to_int;
+    attendance_percentage = json |> member "attendance_percentage" |> to_float;
+    final_grade = json |> member "final_grade" |> to_float;
+    evaluations = json |> member "evaluations" |> to_list |> List.map parse_evaluation;
+  }
+
+let parse_student json =
+  {
+    student_id = json |> member "student_id" |> to_string;
     name = json |> member "name" |> to_string;
-    evaluations = json |> member "evaluations" |> to_list |> List.map to_string;
+    cumulative_gpa = json |> member "cumulative_gpa" |> to_float;
   }
 
 let parse_course json =
   {
-    id = json |> member "id" |> to_string;
-    name = json |> member "name" |> to_string;
-    semester = json |> member "semester" |> to_string;
-    academic_year = json |> member "academic_year" |> to_int;
-    credits = json |> member "credits" |> to_int;
-    professor = json |> member "professor" |> to_string;
-    department = json |> member "department" |> to_string;
-    topics = json |> member "topics" |> to_list |> List.map parse_topic;
-    student_grades = json |> member "student_grades" |> to_assoc |> List.map (fun (k, v) -> (k, to_number_as_float v));
-  }
-
-let parse_evaluation json =
-  let student_scores =
-    json |> member "student_scores" |> to_assoc |> List.map (fun (student_id, v) ->
-      let by_topic = v |> member "by_topic" |> to_assoc |> List.map (fun (tid, score) -> (tid, to_number_as_float score)) in
-      (student_id, by_topic)
-    )
-  in
-  let groups = 
-    try
-      Some (json |> member "groups" |> to_list |> List.map (fun group ->
-        let id = group |> member "id" |> to_string in
-        let members = group |> member "members" |> to_list |> List.map to_string in
-        let score = group |> member "score" |> to_number_as_float in
-        (id, members, score)
-      ))
-    with _ -> None
-  in
-  let to_float_or_null json =
-    try Some (to_number_as_float json)
-    with _ -> None
-  in
-  {
-    id = json |> member "id" |> to_string;
-    name = json |> member "type" |> to_string_option;
-    date = json |> member "date" |> to_string;
-    weight = json |> member "weight" |> to_float_or_null;
-    topic_ids = json |> member "topics_covered" |> to_list |> List.map to_string;
     course_id = json |> member "course_id" |> to_string;
-    student_scores;
-    passing_score = json |> member "passing_score" |> to_float_or_null;
-    excellence_threshold = json |> member "excellence_threshold" |> to_float_or_null;
-    groups;
+    title = json |> member "title" |> to_string;
+    topics = json |> member "topics" |> to_list |> List.map (fun t ->
+      (t |> member "topic_id" |> to_string, t |> member "name" |> to_string)
+    );
+    prerequisites = json |> member "prerequisites" |> to_list |> List.map to_string;
   }
 
-let parse_dataset json =
+let load_data filename =
+  let json = Yojson.Basic.from_file filename in
   {
     students = json |> member "students" |> to_list |> List.map parse_student;
     courses = json |> member "courses" |> to_list |> List.map parse_course;
-    evaluations = json |> member "evaluations" |> to_list |> List.map parse_evaluation;
+    enrollments = json |> member "enrollments" |> to_list |> List.map parse_enrollment;
   }
 
-(* Helper: collect all scores for each (topic, course) *)
-let collect_topic_course_scores dataset =
-  List.fold_left (fun acc eval ->
-    List.fold_left (fun acc topic_id ->
-      let scores =
-        list_filter_map (fun (_, by_topic) ->  (* Removed unused student_id *)
-          match List.assoc_opt topic_id by_topic with Some s -> Some s | None -> None
-        ) eval.student_scores
-      in
-      let key = (topic_id, eval.course_id) in
-      let prev = TopicCourseMap.find_opt key acc |> Option.value ~default:[] in
-      TopicCourseMap.add key (prev @ scores) acc
-    ) acc eval.topic_ids
-  ) TopicCourseMap.empty dataset.evaluations
+(* Helper functions *)
+let average lst =
+  let sum = List.fold_left (+.) 0.0 lst in
+  sum /. float_of_int (List.length lst)
 
-(* 1. Rendimiento por temas por cursos*)
-let calculate_topic_performance dataset =
-  let topic_scores = collect_topic_course_scores dataset in
-  TopicCourseMap.mapi (fun _ scores ->  (* Removed unused topic_id and course_id *)
-    let n = float_of_int (List.length scores) in
-    let mean = List.fold_left (+.) 0. scores /. n in
-    let variance = List.fold_left (fun acc x -> acc +. (x -. mean) ** 2.) 0. scores /. n in
-    let std_dev = sqrt variance in
-    let min_score = List.fold_left min infinity scores in
-    let max_score = List.fold_left max neg_infinity scores in
-    `Assoc [
-      ("mean", `Float mean);
-      ("std_dev", `Float std_dev);
-      ("min_score", `Float min_score);
-      ("max_score", `Float max_score)
-    ]
-  ) topic_scores
+let find_student student_id students =
+  List.find (fun s -> s.student_id = student_id) students
 
-(* 2. Tendencias de rendimiento de estudiantes (sobre el tiempo, por fecha) *)
-let calculate_student_trends dataset =
-  let student_scores_over_time =
-    List.fold_left (fun acc eval ->
-      List.fold_left (fun acc (student_id, by_topic) ->
-        let total = List.fold_left (fun s (_, v) -> s +. v) 0. by_topic in
-        let prev = StringMap.find_opt student_id acc |> Option.value ~default:[] in
-        StringMap.add student_id ((eval.date, total) :: prev) acc
-      ) acc eval.student_scores
-    ) StringMap.empty dataset.evaluations
+(* Statistical analysis functions *)
+let multiple_linear_regression data =
+  let calculate_weighted_scores evaluations =
+    evaluations
+    |> List.map (fun eval -> eval.score *. eval.weight)
+    |> List.fold_left (+.) 0.0
   in
-  StringMap.mapi (fun _ scores ->  (* Removed unused student_id *)
-    let sorted = List.sort (fun (d1, _) (d2, _) -> String.compare d1 d2) scores in
-    let n = float_of_int (List.length sorted) in
-    let xs = List.mapi (fun i _ -> float_of_int i) sorted in
-    let ys = List.map snd sorted in
-    let sum_x = List.fold_left (+.) 0. xs in
-    let sum_y = List.fold_left (+.) 0. ys in
-    let sum_xy = List.fold_left2 (fun acc x y -> acc +. x *. y) 0. xs ys in
-    let sum_x2 = List.fold_left (fun acc x -> acc +. x *. x) 0. xs in
-    let slope =
-      if n > 1. then
-        (n *. sum_xy -. sum_x *. sum_y) /. (n *. sum_x2 -. sum_x *. sum_x)
-      else 0.
-    in
-    let initial_score = List.hd ys in
-    let final_score = List.hd (List.rev ys) in
-    let improvement = final_score -. initial_score in
-    `Assoc [
-      ("slope", `Float slope);
-      ("initial_score", `Float initial_score);
-      ("final_score", `Float final_score);
-      ("improvement", `Float improvement)
-    ]
-  ) student_scores_over_time
-
-(* 3. Puntos de rendimiento críticos (dificultad/tasa de fracaso por tema) *)
-let calculate_critical_points dataset =
-  let topic_scores =
-    List.fold_left (fun acc eval ->
-      List.fold_left (fun acc topic_id ->
-        let scores =
-          list_filter_map (fun (_, by_topic) ->
-            match List.assoc_opt topic_id by_topic with Some s -> Some s | None -> None
-          ) eval.student_scores
-        in
-        let prev = StringMap.find_opt topic_id acc |> Option.value ~default:[] in
-        StringMap.add topic_id (prev @ scores) acc
-      ) acc eval.topic_ids
-    ) StringMap.empty dataset.evaluations
-  in
-  StringMap.mapi (fun _ scores ->  (* Removed unused topic_id *)
-    let n = float_of_int (List.length scores) in
-    let mean = List.fold_left (+.) 0. scores /. n in
-    let difficulty = 1. -. (mean /. 100.) in
-    let failure_rate = float_of_int (List.length (List.filter (fun x -> x < 60.) scores)) /. n in
-    `Assoc [
-      ("difficulty", `Float difficulty);
-      ("failure_rate", `Float failure_rate)
-    ]
-  ) topic_scores 
-
-(* 4. Correlaciones entre temas (correlación entre temas) *)
-let calculate_topic_correlations dataset =
-  let topic_scores =
-    List.fold_left (fun acc eval ->
-      List.fold_left (fun acc topic_id ->
-        let scores =
-          list_filter_map (fun (_, by_topic) ->
-            match List.assoc_opt topic_id by_topic with Some s -> Some s | None -> None
-          ) eval.student_scores
-        in
-        let prev = StringMap.find_opt topic_id acc |> Option.value ~default:[] in
-        StringMap.add topic_id (prev @ scores) acc
-      ) acc eval.topic_ids
-    ) StringMap.empty dataset.evaluations
-  in
-  let topic_ids = StringMap.bindings topic_scores |> List.map fst in
-  let correlation xs ys =
-    let n = float_of_int (List.length xs) in
-    let mean_x = List.fold_left (+.) 0. xs /. n in
-    let mean_y = List.fold_left (+.) 0. ys /. n in
-    let cov = List.fold_left2 (fun acc x y -> acc +. (x -. mean_x) *. (y -. mean_y)) 0. xs ys /. n in
-    let std_x = sqrt (List.fold_left (fun acc x -> acc +. (x -. mean_x) ** 2.) 0. xs /. n) in
-    let std_y = sqrt (List.fold_left (fun acc y -> acc +. (y -. mean_y) ** 2.) 0. ys /. n) in
-    if std_x = 0. || std_y = 0. then 0. else cov /. (std_x *. std_y)
-  in
-  List.fold_left (fun acc t1 ->
-    List.fold_left (fun acc t2 ->
-      if t1 < t2 then
-        let xs = StringMap.find t1 topic_scores in
-        let ys = StringMap.find t2 topic_scores in
-        let min_len = min (List.length xs) (List.length ys) in
-        let xs = list_take min_len xs in
-        let ys = list_take min_len ys in
-        let corr = correlation xs ys in
-        StringMap.add (t1 ^ "_" ^ t2) (`Float corr) acc
-      else acc
-    ) acc topic_ids
-  ) StringMap.empty topic_ids
-
-(* 5. Pass/Fail and Excellence Rates Analysis *)
-let calculate_pass_excellence_rates dataset =
-  let evaluation_stats =
-    List.fold_left (fun acc eval ->
-      let total_students = float_of_int (List.length eval.student_scores) in
-      let passing_score = eval.passing_score |> Option.value ~default:60. in
-      let excellence_threshold = eval.excellence_threshold |> Option.value ~default:85. in
-      
-      let (pass_count, excellence_count) =
-        List.fold_left (fun (pass, excel) (_, by_topic) ->
-          let total = List.fold_left (fun s (_, v) -> s +. v) 0. by_topic in
-          let new_pass = if total >= passing_score then pass + 1 else pass in
-          let new_excel = if total >= excellence_threshold then excel + 1 else excel in
-          (new_pass, new_excel)
-        ) (0, 0) eval.student_scores
-      in
-      
-      let pass_rate = float_of_int pass_count /. total_students in
-      let excellence_rate = float_of_int excellence_count /. total_students in
-      
-      StringMap.add eval.id (`Assoc [
-        ("pass_rate", `Float pass_rate);
-        ("excellence_rate", `Float excellence_rate);
-        ("passing_score", `Float passing_score);
-        ("excellence_threshold", `Float excellence_threshold)
-      ]) acc
-    ) StringMap.empty dataset.evaluations
-  in
-  evaluation_stats
-
-(* 6. Group Performance Analysis *)
-let calculate_group_performance dataset =
-  let group_stats =
-    List.fold_left (fun acc eval ->
-      match eval.groups with
-      | Some groups ->
-          let group_performance =
-            List.fold_left (fun acc (group_id, members, avg_score) ->
-              let variance = 
-                List.fold_left (fun acc member_id ->
-                  let member_scores = 
-                    List.assoc member_id eval.student_scores 
-                    |> List.map snd 
-                    |> List.fold_left (+.) 0.
-                  in
-                  acc +. (member_scores -. avg_score) ** 2.
-                ) 0. members /. float_of_int (List.length members)
-              in
-              let std_dev = sqrt variance in
-              StringMap.add group_id (`Assoc [
-                ("avg_score", `Float avg_score);
-                ("std_dev", `Float std_dev);
-                ("member_count", `Float (float_of_int (List.length members)))
-              ]) acc
-            ) StringMap.empty groups
-          in
-          StringMap.add eval.id group_performance acc
-      | None -> acc
-    ) StringMap.empty dataset.evaluations
-  in
-  group_stats
-
-(* Main function to run all analyses *)
-let analyze_data json_file =
-  let json = Yojson.Basic.from_file json_file in
-  let dataset = parse_dataset json in
-  let topic_performance = calculate_topic_performance dataset in
-  let student_trends = calculate_student_trends dataset in
-  let critical_points = calculate_critical_points dataset in
-  let topic_correlations = calculate_topic_correlations dataset in
-  let pass_excellence_rates = calculate_pass_excellence_rates dataset in
-  let group_performance = calculate_group_performance dataset in
   
-  (* Convert group performance to the correct JSON structure *)
-  let group_performance_json = 
-    StringMap.bindings group_performance
-    |> List.map (fun (eval_id, group_map) ->
-      (eval_id, `Assoc (StringMap.bindings group_map))
+  data.enrollments
+  |> List.map (fun enrollment ->
+    {
+      weighted_score = calculate_weighted_scores enrollment.evaluations;
+      attendance = enrollment.attendance_percentage;
+      final_grade = enrollment.final_grade;
+    }
+  )
+
+let logistic_regression data =
+  let pass_threshold = 70.0 in
+  
+  data.enrollments
+  |> List.map (fun enrollment ->
+    let student = find_student enrollment.student_id data.students in
+    let avg_eval_score = enrollment.evaluations
+      |> List.map (fun eval -> eval.score)
+      |> average in
+    {
+      prior_gpa = student.cumulative_gpa;
+      avg_eval_score;
+      attendance = enrollment.attendance_percentage;
+      will_pass = enrollment.final_grade >= pass_threshold;
+    }
+  )
+
+let cluster_analysis data =
+  let calculate_topic_scores evaluations =
+    evaluations
+    |> List.fold_left (fun acc eval ->
+      List.fold_left (fun acc' (topic_id, score) ->
+        let current = try List.assoc topic_id acc' with Not_found -> 0.0 in
+        (topic_id, current +. score) :: List.remove_assoc topic_id acc'
+      ) acc eval.topic_scores
+    ) []
+    |> List.map (fun (topic_id, score) ->
+      (topic_id, score /. float_of_int (List.length evaluations))
     )
   in
   
-  let output_json = `Assoc [
-    ("topic_performance", `Assoc (
-      TopicCourseMap.bindings topic_performance |> List.map (fun ((topic_id, course_id), v) ->
-        (topic_id ^ "_" ^ course_id, v)
+  data.enrollments
+  |> List.map (fun enrollment ->
+    {
+      student_id = enrollment.student_id;
+      topic_scores = calculate_topic_scores enrollment.evaluations;
+      attendance = enrollment.attendance_percentage;
+      final_grade = enrollment.final_grade;
+    }
+  )
+
+let time_series_analysis data =
+  let group_by_semester enrollments =
+    enrollments
+    |> List.fold_left (fun acc enrollment ->
+      let key = (enrollment.semester, enrollment.year) in
+      let current = try List.assoc key acc with Not_found -> [] in
+      (key, enrollment.final_grade :: current) :: List.remove_assoc key acc
+    ) []
+  in
+  
+  data.enrollments
+  |> group_by_semester
+  |> List.map (fun ((semester, year), grades) ->
+    {
+      semester;
+      year;
+      avg_grade = average grades;
+    }
+  )
+
+let correlation_analysis data =
+  let collect_topic_scores enrollments =
+    enrollments
+    |> List.fold_left (fun acc enrollment ->
+      enrollment.evaluations
+      |> List.fold_left (fun acc' eval ->
+        eval.topic_scores
+        |> List.fold_left (fun acc'' (topic_id, score) ->
+          let current = try List.assoc topic_id acc'' with Not_found -> [] in
+          (topic_id, (score, enrollment.final_grade) :: current) :: List.remove_assoc topic_id acc''
+        ) acc'
+      ) acc
+    ) []
+  in
+  
+  data.enrollments
+  |> collect_topic_scores
+  |> List.map (fun (topic_id, scores) ->
+    let topic_scores = List.map fst scores in
+    let final_grades = List.map snd scores in
+    {
+      topic_id;
+      avg_topic_score = average topic_scores;
+      avg_final_grade = average final_grades;
+    }
+  )
+
+(* Result formatting functions *)
+let format_regression_results results =
+  results
+  |> List.map (fun r ->
+    Printf.sprintf "Weighted Score: %.2f, Attendance: %.2f%%, Final Grade: %.2f"
+      r.weighted_score r.attendance r.final_grade
+  )
+
+let format_logistic_results results =
+  results
+  |> List.map (fun r ->
+    Printf.sprintf "GPA: %.2f, Avg Score: %.2f, Attendance: %.2f%%, Will Pass: %b"
+      r.prior_gpa r.avg_eval_score r.attendance r.will_pass
+  )
+
+let format_cluster_results results =
+  results
+  |> List.map (fun r ->
+    let topic_scores = r.topic_scores
+      |> List.map (fun (topic_id, score) ->
+        Printf.sprintf "  Topic %s: %.2f" topic_id score
       )
-    ));
-    ("student_trends", `Assoc (StringMap.bindings student_trends));
-    ("critical_points", `Assoc (StringMap.bindings critical_points));
-    ("topic_correlations", `Assoc (StringMap.bindings topic_correlations));
-    ("pass_excellence_rates", `Assoc (StringMap.bindings pass_excellence_rates));
-    ("group_performance", `Assoc group_performance_json);
-  ] in
-  Yojson.Basic.to_file "statistical_results.json" output_json 
+      |> String.concat "\n" in
+    Printf.sprintf "Student %s:\n%s\n  Attendance: %.2f%%, Final Grade: %.2f"
+      r.student_id topic_scores r.attendance r.final_grade
+  )
+
+let format_time_series_results results =
+  results
+  |> List.map (fun r ->
+    Printf.sprintf "%s %d: Average Grade = %.2f" r.semester r.year r.avg_grade
+  )
+
+let format_correlation_results results =
+  results
+  |> List.map (fun r ->
+    Printf.sprintf "Topic %s: Avg Score = %.2f, Avg Final Grade = %.2f"
+      r.topic_id r.avg_topic_score r.avg_final_grade
+  )
 
 (* Entry point *)
 let () =
-  analyze_data "../entradas/student-performance-data.json"
+  let data = load_data "../entradas/academic-performance-mock-data.json" in
+  
+  let regression_results = multiple_linear_regression data in
+  let logistic_results = logistic_regression data in
+  let cluster_results = cluster_analysis data in
+  let time_series_results = time_series_analysis data in
+  let correlation_results = correlation_analysis data in
+  
+  let all_results = {
+    regression = regression_results;
+    logistic = logistic_results;
+    clustering = cluster_results;
+    time_series = time_series_results;
+    correlation = correlation_results;
+  } in
+  
+  (* Write results to JSON file *)
+  write_results_to_file all_results "analysis_results.json";
+  
+  
