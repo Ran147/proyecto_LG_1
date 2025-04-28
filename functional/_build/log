@@ -1,4 +1,4 @@
-# C:\Users\Siroko147\AppData\Local\opam\default\bin\dune.exe build
+# C:\Users\Siroko147\AppData\Local\opam\default\bin\dune.exe exec _build/default/statistical_analysis.exe
 # OCAMLPARAM: unset
 # Shared cache: enabled-except-user-rules
 # Shared cache location:
@@ -15,12 +15,4 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\SIROKO~1\AppData\Local\Temp\dune_d1c159_output
-$ (cd _build/default && C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlc.opt.exe -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I .statistical_analysis.eobjs/byte -I C:\Users\Siroko147\AppData\Local\opam\default\lib\seq -I C:\Users\Siroko147\AppData\Local\opam\default\lib\yojson -no-alias-deps -opaque -o .statistical_analysis.eobjs/byte/dune__exe__Statistical_analysis.cmo -c -impl statistical_analysis.ml)
-> File "statistical_analysis.ml", line 225, characters 53-66:
-> 225 |     let student = find_student enrollment.student_id data.students in
->                                                            ^^^^^^^^^^^^^
-> Error: The field access data.students has type student list
->        but an expression was expected of type cluster_result list
->        Type student is not compatible with type cluster_result
-[2]
+$ C:\Users\Siroko147\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\SIROKO~1\AppData\Local\Temp\dune_9cc51e_output
