@@ -739,7 +739,7 @@
       "semester": "Spring",
       "year": 2024,
       "attendance_percentage": 60,
-      "final_grade": 65,
+      "final_grade": 55,
       "evaluations": [
         {
           "evaluation_id": "EV041",
@@ -747,11 +747,11 @@
           "weight": 10,
           "time_taken": "early",
           "attempts": 2,
-          "score": 62,
+          "score": 52,
           "topic_scores": [
-            {"topic_id": "T007", "score": 64},
-            {"topic_id": "T008", "score": 61},
-            {"topic_id": "T009", "score": 61}
+            {"topic_id": "T007", "score": 54},
+            {"topic_id": "T008", "score": 51},
+            {"topic_id": "T009", "score": 51}
           ]
         },
         {
@@ -760,11 +760,11 @@
           "weight": 20,
           "time_taken": "mid",
           "attempts": 2,
-          "score": 60,
+          "score": 50,
           "topic_scores": [
-            {"topic_id": "T007", "score": 62},
-            {"topic_id": "T008", "score": 59},
-            {"topic_id": "T009", "score": 59}
+            {"topic_id": "T007", "score": 52},
+            {"topic_id": "T008", "score": 49},
+            {"topic_id": "T009", "score": 49}
           ]
         },
         {
@@ -773,11 +773,11 @@
           "weight": 30,
           "time_taken": "mid",
           "attempts": 1,
-          "score": 65,
+          "score": 55,
           "topic_scores": [
-            {"topic_id": "T007", "score": 67},
-            {"topic_id": "T008", "score": 64},
-            {"topic_id": "T009", "score": 64}
+            {"topic_id": "T007", "score": 57},
+            {"topic_id": "T008", "score": 54},
+            {"topic_id": "T009", "score": 54}
           ]
         },
         {
@@ -786,11 +786,11 @@
           "weight": 15,
           "time_taken": "late",
           "attempts": 1,
-          "score": 70,
+          "score": 60,
           "topic_scores": [
-            {"topic_id": "T007", "score": 72},
-            {"topic_id": "T008", "score": 69},
-            {"topic_id": "T009", "score": 69}
+            {"topic_id": "T007", "score": 62},
+            {"topic_id": "T008", "score": 59},
+            {"topic_id": "T009", "score": 59}
           ]
         },
         {
@@ -799,11 +799,11 @@
           "weight": 25,
           "time_taken": "final",
           "attempts": 1,
-          "score": 68,
+          "score": 58,
           "topic_scores": [
-            {"topic_id": "T007", "score": 70},
-            {"topic_id": "T008", "score": 67},
-            {"topic_id": "T009", "score": 67}
+            {"topic_id": "T007", "score": 60},
+            {"topic_id": "T008", "score": 57},
+            {"topic_id": "T009", "score": 57}
           ]
         }
       ]

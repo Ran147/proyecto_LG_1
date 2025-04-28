@@ -26,7 +26,6 @@ type course = {
   course_id: string;
   title: string;
   topics: topic list;
-  prerequisites: string list;
 }
 
 type topic_score = {
@@ -39,7 +38,6 @@ type evaluation = {
   eval_type: string;
   weight: float;
   time_taken: string;
-  attempts: int;
   score: float;
   topic_scores: topic_score list;
 }
@@ -122,8 +120,6 @@ let parse_course json =
   safe_to_string course_id_json >>= fun title ->
   safe_member "topics" json >>= fun topics_json ->
   safe_to_list topics_json >>= fun topics_list ->
-  safe_member "prerequisites" json >>= fun prereq_json ->
-  safe_to_list prereq_json >>= fun prereq_list ->
   
   let parse_topics = List.map parse_topic topics_list in
   let topics_result = List.fold_left (fun acc res ->
@@ -133,18 +129,11 @@ let parse_course json =
     | _, Error e -> Error e
   ) (Ok []) parse_topics in
   
-  let prerequisites = List.map (fun j -> 
-    match safe_to_string j with
-    | Ok s -> s
-    | Error _ -> ""
-  ) prereq_list in
-  
   match topics_result with
   | Ok topics -> Ok {
       course_id;
       title;
       topics = List.rev topics;
-      prerequisites;
     }
   | Error e -> Error e
 
@@ -169,8 +158,6 @@ let parse_evaluation json =
   safe_to_float weight_json >>= fun weight ->
   safe_member "time_taken" json >>= fun time_json ->
   safe_to_string time_json >>= fun time_taken ->
-  safe_member "attempts" json >>= fun attempts_json ->
-  safe_to_int attempts_json >>= fun attempts ->
   safe_member "score" json >>= fun score_json ->
   safe_to_float score_json >>= fun score ->
   safe_member "topic_scores" json >>= fun topic_scores_json ->
@@ -190,7 +177,6 @@ let parse_evaluation json =
       eval_type;
       weight;
       time_taken;
-      attempts;
       score;
       topic_scores = List.rev topic_scores;
     }

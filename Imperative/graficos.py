@@ -9,7 +9,7 @@ from tkinter import ttk, messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
-# Set style for all plots
+# Configurar estilo para todos los gráficos
 plt.style.use('ggplot')
 sns.set_palette("viridis")
 
@@ -23,7 +23,7 @@ class VisualizationApp:
         # Load data
         self.data = self.load_data()
         if not self.data:
-            messagebox.showerror("Error", "Failed to load data. Please check the file path.")
+            messagebox.showerror("Error", "Error al cargar los datos. Por favor, verifique la ruta del archivo.")
             root.destroy()
             return
         
@@ -272,10 +272,10 @@ class VisualizationApp:
         options_frame = ttk.Frame(self.viz_frame)
         options_frame.pack(fill=tk.X, pady=10)
         
-        ttk.Label(options_frame, text="Select visualization:").pack(side=tk.LEFT, padx=5)
+        ttk.Label(options_frame, text="Seleccionar visualización:").pack(side=tk.LEFT, padx=5)
         
         # Create dropdown for visualization options
-        options = ["Scatter Plot", "Summary Statistics"]
+        options = ["Gráfico de Dispersión", "Estadísticas Resumen"]
         selected_option = tk.StringVar()
         selected_option.set(options[0])
         
@@ -285,13 +285,13 @@ class VisualizationApp:
         # Function to update visualization based on selection
         def update_viz():
             option = selected_option.get()
-            if option == "Scatter Plot":
+            if option == "Gráfico de Dispersión":
                 self.plot_logistic_scatter()
-            elif option == "Summary Statistics":
+            elif option == "Estadísticas Resumen":
                 self.plot_logistic_summary()
         
         # Create button to apply selection
-        ttk.Button(options_frame, text="Show", command=update_viz).pack(side=tk.LEFT, padx=5)
+        ttk.Button(options_frame, text="Mostrar", command=update_viz).pack(side=tk.LEFT, padx=5)
         
         # Show default visualization
         self.plot_logistic_scatter()
@@ -521,16 +521,16 @@ class VisualizationApp:
             ax.text(bar.get_x() + bar.get_width()/2., height + 0.1,
                     f'{int(height)}', ha='center', va='bottom')
         
-        ax.set_title('Performance Distribution', fontsize=16)
-        ax.set_xlabel('Performance Level', fontsize=14)
-        ax.set_ylabel('Number of Students', fontsize=14)
+        ax.set_title('Distribución de Rendimiento', fontsize=16)
+        ax.set_xlabel('Nivel de Rendimiento', fontsize=14)
+        ax.set_ylabel('Número de Estudiantes', fontsize=14)
         ax.set_ylim(0, max(performance_counts.values) * 1.2)
         
         fig.tight_layout()
         self.current_canvas.draw()
         
         # Update text with summary
-        text = "Performance Distribution:\n"
+        text = "Distribución de Rendimiento:\n"
         for level, count in performance_counts.items():
             text += f"{level}: {count} students ({count/len(df)*100:.1f}%)\n"
         
@@ -783,7 +783,7 @@ class VisualizationApp:
         correlation_strength = pd.cut(
             df['correlation'], 
             bins=[-1, -0.7, -0.3, 0.3, 0.7, 1], 
-            labels=['Strong Negative', 'Moderate Negative', 'Weak', 'Moderate Positive', 'Strong Positive']
+            labels=['Negativa Fuerte', 'Negativa Moderada', 'Débil', 'Positiva Moderada', 'Positiva Fuerte']
         )
         
         strength_counts = correlation_strength.value_counts()

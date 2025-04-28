@@ -9,7 +9,6 @@
 - **title**: Nombre del curso. Solo para referencia.
 - **topics**: Lista de temas cubiertos en cada curso. Cada tema tiene un topic_id y un nombre.
 - **topic_id**: Identificador único de cada tema. Se usa para análisis de desempeño por tema y correlaciones.
-- **prerequisites**: Lista de cursos requeridos antes de tomar un curso. Útil para análisis de trayectorias académicas.
 - **enrollment_id**: Identificador único de cada inscripción de estudiante en un curso. Relaciona estudiante, curso, evaluaciones y resultados.
 - **semester**: Semestre en el que se cursa la materia. Se usa para análisis de series temporales.
 - **year**: Año en el que se cursa la materia. Se usa para análisis de series temporales.
@@ -20,7 +19,6 @@
 - **type**: Tipo de evaluación (quiz, assignment, midterm, project, final). Permite análisis por tipo de evaluación.
 - **weight**: Peso de la evaluación en la calificación final.
 - **time_taken**: Momento en que se realiza la evaluación (early, mid, late, final). Útil para análisis de desempeño temprano.
-- **attempts**: Número de intentos realizados en la evaluación.
 - **score**: Calificación obtenida en la evaluación.
 - **topic_scores**: Lista de calificaciones por tema en cada evaluación.
 
@@ -31,7 +29,7 @@
 - **variable_influence**: Influencia y significancia estadística de cada variable en la regresión.
 - **logistic_regression_data**: Datos usados para la regresión logística (desempeño temprano, GPA, asistencia, aprobado/reprobado).
 - **cluster_data**: Datos agrupados para análisis de clusters (asistencia, calificación final, desempeño por tema).
-- **time_series_data**: Datos agregados por periodo (semestre/año) para análisis de tendencias.
+- **time_series_data**: Datos agregados por period (semestre/año) para análisis de tendencias.
 - **correlation_data**: Matriz de correlaciones entre temas.
 
 Estas variables permiten realizar análisis estadísticos, visualizaciones y obtener conclusiones sobre el desempeño académico de los estudiantes.
@@ -120,17 +118,16 @@ El archivo `academic-performance-mock-data.json` contiene datos simulados de ren
 
 ### 2. Cursos (`courses`)
 - Define los cursos disponibles en el sistema
-- Cada curso tiene un ID único, título, lista de temas y prerrequisitos
+- Cada curso tiene un ID único, título y lista de temas
 - Los temas están organizados jerárquicamente dentro de cada curso
 - El conjunto de datos incluye 5 cursos (CS101, CS201, MATH202, CS301, CS401)
-- Los cursos tienen entre 0 y 2 prerrequisitos
 
 ### 3. Inscripciones (`enrollments`)
 - Registra la información de cada estudiante inscrito en un curso
 - Cada inscripción tiene un ID único, referencias al estudiante y al curso, semestre, año, porcentaje de asistencia y calificación final
 - Contiene evaluaciones detalladas para cada inscripción
 - Las evaluaciones incluyen diferentes tipos (quiz, assignment, midterm, project, final)
-- Cada evaluación tiene un peso específico, momento de realización, número de intentos y calificación
+- Cada evaluación tiene un peso específico, momento de realización y calificación
 - Las evaluaciones también incluyen calificaciones por tema, permitiendo análisis granular del desempeño
 
 ### Relaciones entre entidades
