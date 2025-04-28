@@ -1,0 +1,42 @@
+Hola, mire el proyecto tiene dos partes, la de ocaml y la de python, la idea es que el JSON de entrada sea consumido por
+la parte de ocaml, esta aplica los analisis y produce otro JSON con la data, este nuevo JSON es consumido por la parte de python
+para realizar las visualizaciones. 
+
+A como esta el proyecto ahorita ya se puede probar la parte de las visualizaciones de python, ya que ya existe el JSON que consume,
+en caso de que quiera evaluar la parte funcional de ocaml entonces le recomiendo eliminar el JSON que se llama "statistical-analysis-results.json"
+que se encuentra en el directorio "salidas", esto para que cuando corra la parte de ocaml, pueda ver que el JSON con la data
+si se genera correctamente para que python lo utilice.
+
+
+
+PARTE FUNCIONAL(OCAML)
+**Requisitos
+    -Instalar OCAML 
+    -Verificar si tiene instalado el paquete **dune** y **yojson** (para verificar, escribir "opam list" te da una lista 
+    de los paquetes instalados y deberia estar ahi.)
+    - De no estar los paquetes, correr en terminal "opam install nombre-del-paquete"
+** Correr la parte FUNCIONAL
+    - Eliminar el JSON "statistical-analysis-results.json" en caso que lo tengas ahi.(Esta en el directorio salidas)
+    - Abrir terminal
+    - En mi caso uso power shell entonces para activar el ocaml hay que escribir "(& opam env --switch=default) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }"
+    - Ya ocaml esta activado(podes verificarlo escribiendo ocaml --version en terminal)
+    - Ir al directorio llamado "functional"
+    - Escribir "dune clean" y seguidamente "dune build" en terminal
+    - Suponiendo que estas en el directorio "functional"  en terminal escribir "dune exec _build/default/statistical_analysis.exe"
+    - Lo anterior genera un JSON en el directorio "salidas", este es consumido por la parte imperativa de python.
+
+
+
+PARTE IMPERATIVA(PYTHON)
+    **Requisitos
+        - Fue desarrollado con python 13 
+        -Ir a la root(raiz) del proyecto
+        - pip install -r requirements.txt (yo lo estoy haciendo desde visual studio code entonces tenia que hacerlo asi)
+    ** Correr la parte IMPERATIVA
+        - Suponiendo que estas en la raiz del proyecto
+        - Correr en terminal "python Imperative/graficos.py" (la primera parte del comando puede variar segun la maquina
+        en algunas es python3 en otras python)
+
+++LISTO ESO SERIA TODO++
+
+    
