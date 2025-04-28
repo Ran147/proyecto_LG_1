@@ -106,3 +106,44 @@ El análisis multivariable realizado en el proyecto corresponde principalmente a
 - Visualizar la fuerza y dirección de la relación entre pares de temas.
 - Identificar temas que suelen estar correlacionados positiva o negativamente.
 - Detectar áreas donde el refuerzo de un tema puede impactar en el desempeño de otros.
+
+---
+
+## Estructura del JSON y Resumen de Datos
+
+El archivo `academic-performance-mock-data.json` contiene datos simulados de rendimiento académico estructurados en tres colecciones principales:
+
+### 1. Estudiantes (`students`)
+- Contiene información básica de cada estudiante
+- Cada estudiante tiene un ID único, nombre y GPA acumulado
+- El conjunto de datos incluye 5 estudiantes con GPAs que van desde 2.8 hasta 3.9
+
+### 2. Cursos (`courses`)
+- Define los cursos disponibles en el sistema
+- Cada curso tiene un ID único, título, lista de temas y prerrequisitos
+- Los temas están organizados jerárquicamente dentro de cada curso
+- El conjunto de datos incluye 5 cursos (CS101, CS201, MATH202, CS301, CS401)
+- Los cursos tienen entre 0 y 2 prerrequisitos
+
+### 3. Inscripciones (`enrollments`)
+- Registra la información de cada estudiante inscrito en un curso
+- Cada inscripción tiene un ID único, referencias al estudiante y al curso, semestre, año, porcentaje de asistencia y calificación final
+- Contiene evaluaciones detalladas para cada inscripción
+- Las evaluaciones incluyen diferentes tipos (quiz, assignment, midterm, project, final)
+- Cada evaluación tiene un peso específico, momento de realización, número de intentos y calificación
+- Las evaluaciones también incluyen calificaciones por tema, permitiendo análisis granular del desempeño
+
+### Relaciones entre entidades
+- Los estudiantes se relacionan con cursos a través de las inscripciones
+- Las inscripciones conectan estudiantes, cursos y evaluaciones
+- Las evaluaciones se relacionan con temas específicos del curso a través de las calificaciones por tema
+
+### Resumen de datos
+- 5 estudiantes
+- 5 cursos
+- 11 inscripciones
+- 55 evaluaciones (5 por inscripción)
+- 15 temas distribuidos entre los cursos
+- Período de datos: Otoño 2023 - Primavera 2024
+
+Esta estructura jerárquica permite realizar análisis multidimensionales, como los descritos en las secciones anteriores, facilitando la identificación de patrones y correlaciones en el rendimiento académico.

@@ -25,7 +25,7 @@ Run the visualization tool:
 python Imperative/graficos.py
 ```
 
-Follow the on-screen menu to select the analysis you want to visualize.
+Follow the on-screen menu to select the analysis you want to viualize.
 
 ## Data Source
 
